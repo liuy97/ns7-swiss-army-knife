@@ -1,0 +1,73 @@
+{
+	"version": 1,
+	"projects": {
+		"all": {
+			"root": "packages/",
+			"projectType": "library",
+			"architect": {
+				"build": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx run @nativescript/app-shortcuts:build.all", "nx run app-shortcuts:build.all", "nx run locate-address:build.all", "nx run swiss-army-knife:build.all", "nx run universal-links:build.all", "nx run gintel-picker:build.all"],
+						"parallel": false
+					}
+				},
+				"focus": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx g @nativescript/plugin-tools:focus-packages"],
+						"parallel": false
+					}
+				}
+			}
+		},
+		"swiss-army-knife": {
+			"root": "packages/swiss-army-knife",
+			"sourceRoot": "packages/swiss-army-knife",
+			"projectType": "library",
+			"schematics": {},
+			"architect": {
+				"build": {
+					"builder": "@nrwl/node:package",
+					"options": {
+						"outputPath": "dist/packages/swiss-army-knife",
+						"tsConfig": "packages/swiss-army-knife/tsconfig.json",
+						"packageJson": "packages/swiss-army-knife/package.json",
+						"main": "packages/swiss-army-knife/index.ts",
+						"assets": [
+							"packages/swiss-army-knife/*.md",
+							"packages/swiss-army-knife/index.d.ts",
+							"LICENSE",
+							{
+								"glob": "**/*",
+								"input": "packages/swiss-army-knife/platforms/",
+								"output": "./platforms/"
+							}
+						]
+					}
+				},
+				"build.all": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx run swiss-army-knife:build", "node tools/scripts/build-finish.ts swiss-army-knife"],
+						"parallel": false
+					}
+				},
+				"focus": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx g @nativescript/plugin-tools:focus-packages swiss-army-knife"],
+						"parallel": false
+					}
+				}
+			}
+		}
+	},
+	"cli": {
+		"defaultCollection": "@nrwl/workspace"
+	}
+}
