@@ -16,11 +16,7 @@ npm run setup
 npm start
 ```
 
-- @nativescript/app-shortcuts
-- @nativescript/gintel-picker
-- @nativescript/locate-address
 - @nativescript/swiss-army-knife
-- @nativescript/universal-links
 
 # How to use?
 
